@@ -12,7 +12,7 @@ namespace BeerTapV2.Dal
     {
         public BeerTapContext(): base("BeerTap2")
         {
-            //Database.SetInitializer<BeerTapContext>();
+            Database.SetInitializer<BeerTapContext>(new Initializer());
         }
         public DbSet<Office> Offices { get; set; }
     }
