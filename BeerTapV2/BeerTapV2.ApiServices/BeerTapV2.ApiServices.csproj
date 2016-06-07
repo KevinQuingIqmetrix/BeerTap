@@ -176,6 +176,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiServiceInterface\IOfficeApiService.cs" />
+    <Compile Include="OfficeApiService.cs" />
     <Compile Include="IDomainServiceResolver.cs" />
     <Compile Include="ISampleApiService.cs" />
     <Compile Include="LinksParametersSource.cs" />
@@ -186,9 +187,17 @@
     <Compile Include="SampleApiService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BeerTapV2.DTO\BeerTapV2.DTO.csproj">
+      <Project>{C51540CF-4342-4588-86D1-AA3DFBE739DF}</Project>
+      <Name>BeerTapV2.DTO</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BeerTapV2.Model\BeerTapV2.Model.csproj">
       <Project>{F1BE99C5-041C-4366-9E74-0AD3632A8611}</Project>
       <Name>BeerTapV2.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BeerTapV2.Repository\BeerTapV2.Repository.csproj">
+      <Project>{54b1b3c0-c711-48a3-804f-86ececd253c2}</Project>
+      <Name>BeerTapV2.Repository</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
