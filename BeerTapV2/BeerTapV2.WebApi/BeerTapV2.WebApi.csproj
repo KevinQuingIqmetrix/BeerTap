@@ -48,12 +48,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AutoMapper, Version=3.3.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\AutoMapper.3.3.0\lib\net40\AutoMapper.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="AutoMapper.Net4, Version=3.3.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\AutoMapper.3.3.0\lib\net40\AutoMapper.Net4.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="CacheCow.Common, Version=0.5.9.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -298,6 +298,7 @@
     <Compile Include="Handlers\PutYourApiSafeNameUserContextProvidingHandler.cs" />
     <Compile Include="Hypermedia\OfficeSpec.cs" />
     <Compile Include="Hypermedia\SampleSpec.cs" />
+    <Compile Include="Infrastructure\AutoMapperConfig.cs" />
     <Compile Include="Infrastructure\BootStrapper.cs" />
     <Compile Include="Infrastructure\DefaultApiContainer.cs" />
     <Compile Include="Infrastructure\Installers\ResourceMapperInstaller.cs" />
@@ -338,6 +339,14 @@
     <ProjectReference Include="..\BeerTapV2.ApiServices\BeerTapV2.ApiServices.csproj">
       <Project>{006BC5D6-E8BF-40C9-9C9C-A55685624E43}</Project>
       <Name>BeerTapV2.ApiServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BeerTapV2.Dal\BeerTapV2.Dal.csproj">
+      <Project>{5389b81c-b663-461d-89a8-c87e9573e03b}</Project>
+      <Name>BeerTapV2.Dal</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BeerTapV2.DTO\BeerTapV2.DTO.csproj">
+      <Project>{C51540CF-4342-4588-86D1-AA3DFBE739DF}</Project>
+      <Name>BeerTapV2.DTO</Name>
     </ProjectReference>
     <ProjectReference Include="..\BeerTapV2.Model\BeerTapV2.Model.csproj">
       <Project>{f1be99c5-041c-4366-9e74-0ad3632a8611}</Project>

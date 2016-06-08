@@ -10,6 +10,7 @@ namespace BeerTapV2.WebApi
         protected void Application_Start()
         {
             BootStrapper.Initialize(GlobalConfiguration.Configuration);
+            AutoMapperConfig.RegisterMapping();
         }
     }
 }
