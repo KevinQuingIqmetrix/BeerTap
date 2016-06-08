@@ -15,6 +15,7 @@ namespace BeerTapV2.Dal
             Database.SetInitializer<BeerTapContext>(new Initializer());
         }
         public DbSet<Office> Offices { get; set; }
+        public DbSet<Tap> Taps { get; set; }
     }
 
     public class Initializer : DropCreateDatabaseIfModelChanges<BeerTapContext>
@@ -23,7 +24,23 @@ namespace BeerTapV2.Dal
         {
             context.Offices.Add(new Office
             {
-                Name = "Vancouver"
+                Name = "Vancouver",
+                Taps = new[] {new Tap(), }
+            });
+            context.Offices.Add(new Office
+            {
+                Name = "Regina",
+                Taps = new[] { new Tap(), }
+            });
+            context.Offices.Add(new Office
+            {
+                Name = "Winnipeg",
+                Taps = new[] { new Tap(), }
+            });
+            context.Offices.Add(new Office
+            {
+                Name = "Davidson (NC)",
+                Taps = new[] { new Tap(), }
             });
             context.SaveChanges();
 

@@ -4,12 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BeerTapV2.Dal.Model
+namespace BeerTapV2.DTO
 {
-    public class Office
+    public class TapResourceDto
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public virtual ICollection<Tap> Taps { get; set; }
+    }
+
+    public class TapEntityDto
+    {
+        public int OfficeId { get; set; }
+
     }
 }

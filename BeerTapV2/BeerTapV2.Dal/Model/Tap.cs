@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace BeerTapV2.Dal.Model
 {
-    public class Office
+    public class Tap
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public virtual ICollection<Tap> Taps { get; set; }
+        public virtual Office  Office { get; set; }
     }
 }
