@@ -25,6 +25,11 @@ namespace BeerTapV2.Repository
             _context.SaveChanges();
         }
 
-        //TODO: Add dispose
+        //TODO: Implement DI and using on context at the same time
+        public void Dispose()
+        {
+            _context.Dispose();
+            //GC.SuppressFinalize(_context);
+        }
     }
 }

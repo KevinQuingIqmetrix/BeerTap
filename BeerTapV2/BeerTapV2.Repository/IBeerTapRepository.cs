@@ -9,5 +9,6 @@ namespace BeerTapV2.Repository
         void SaveChanges();
         ICollection<OfficeResourceDto> GetOffices();
         OfficeResourceDto CreateOffice(OfficeEntityDto officeEntDto);
+        OfficeResourceDto UpdateOffice(OfficeEntityDto officeEntDto);
     }
 }

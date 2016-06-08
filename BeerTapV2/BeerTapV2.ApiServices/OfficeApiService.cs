@@ -7,6 +7,7 @@ using BeerTapV2.ApiServices.ApiServiceInterface;
 using BeerTapV2.DTO;
 using BeerTapV2.Model;
 using BeerTapV2.Repository;
+using IQ.Platform.Framework.Common;
 using IQ.Platform.Framework.WebApi;
 
 namespace BeerTapV2.ApiServices
@@ -50,7 +51,14 @@ namespace BeerTapV2.ApiServices
 
         public Task<Office> UpdateAsync(Office resource, IRequestContext context, CancellationToken cancellation)
         {
-            throw new NotImplementedException();
+            var officeEntDto = AutoMapper.Mapper.Map<Office, OfficeEntityDto>(resource);
+            //set id of office to update
+            var id = context.UriParameters.GetByName<int>("Id").EnsureValue();
+            officeEntDto.Id = id;
+
+            var officeResDto = _repo.UpdateOffice(officeEntDto);
+            var officeRes = AutoMapper.Mapper.Map<OfficeResourceDto, Office>(officeResDto);
+            return Task.FromResult(officeRes);
         }
     }
 }
