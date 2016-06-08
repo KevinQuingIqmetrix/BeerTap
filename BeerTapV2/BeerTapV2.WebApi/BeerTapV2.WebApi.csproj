@@ -298,6 +298,8 @@
     <Compile Include="Handlers\PutYourApiSafeNameUserContextProvidingHandler.cs" />
     <Compile Include="Hypermedia\OfficeSpec.cs" />
     <Compile Include="Hypermedia\SampleSpec.cs" />
+    <Compile Include="Hypermedia\TapSpec.cs" />
+    <Compile Include="Hypermedia\TapStateProvider.cs" />
     <Compile Include="Infrastructure\AutoMapperConfig.cs" />
     <Compile Include="Infrastructure\BootStrapper.cs" />
     <Compile Include="Infrastructure\DefaultApiContainer.cs" />

@@ -12,4 +12,14 @@
 
         public int CompanyId { get; private set; }
     }
+
+    public class TapLinksParametersSource
+    {
+        public TapLinksParametersSource(int officeId)
+        {
+            OfficeId = officeId;
+        }
+
+        public int OfficeId { get; private set; }
+    }
 }

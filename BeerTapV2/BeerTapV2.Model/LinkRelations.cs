@@ -14,5 +14,6 @@
         /// </summary>
         public const string Office = "iq:Offices";
 
+        public const string Tap = "iq:Tap";
     }
 }
