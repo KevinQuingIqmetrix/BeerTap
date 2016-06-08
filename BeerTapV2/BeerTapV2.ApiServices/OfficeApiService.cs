@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using BeerTapV2.ApiServices.ApiServiceInterface;
@@ -33,7 +34,10 @@ namespace BeerTapV2.ApiServices
 
         public Task<IEnumerable<Office>> GetManyAsync(IRequestContext context, CancellationToken cancellation)
         {
-            throw new NotImplementedException();
+            var officesdto = _repo.GetOffices();
+            var offices = officesdto.Select(x => AutoMapper.Mapper.Map<OfficeResourceDto, Office>(x));
+            return Task.FromResult(offices);
+
         }
 
         public Task<ResourceCreationResult<Office, int>> CreateAsync(Office resource, IRequestContext context, CancellationToken cancellation)

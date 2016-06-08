@@ -1,4 +1,5 @@
-﻿using BeerTapV2.DTO;
+﻿using System.Collections.Generic;
+using BeerTapV2.DTO;
 
 namespace BeerTapV2.Repository
 {
@@ -6,5 +7,6 @@ namespace BeerTapV2.Repository
     {
         OfficeResourceDto FindOffice(int id);
         void SaveChanges();
+        ICollection<OfficeResourceDto> GetOffices();
     }
 }

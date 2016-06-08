@@ -17,6 +17,11 @@ namespace BeerTapV2.Repository
             return AutoMapper.Mapper.Map<Office, OfficeResourceDto>(office);
         }
 
-
+        public ICollection<OfficeResourceDto> GetOffices()
+        {
+            var offices = _context.Offices.ToList();
+            //TODO: possible make a helper library and method caled map?
+            return offices.Select(AutoMapper.Mapper.Map<Office, OfficeResourceDto>).ToList();
+        }
     }
 }
