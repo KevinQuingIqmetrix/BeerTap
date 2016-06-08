@@ -23,5 +23,14 @@ namespace BeerTapV2.Repository
             //TODO: possible make a helper library and method caled map?
             return offices.Select(AutoMapper.Mapper.Map<Office, OfficeResourceDto>).ToList();
         }
+
+        public OfficeResourceDto CreateOffice(OfficeEntityDto officeEntDto)
+        {
+            var officeEnt = AutoMapper.Mapper.Map<OfficeEntityDto, Office>(officeEntDto);
+            _context.Offices.Add(officeEnt);
+            SaveChanges();
+            return AutoMapper.Mapper.Map<Office, OfficeResourceDto>(officeEnt);
+
+        }
     }
 }

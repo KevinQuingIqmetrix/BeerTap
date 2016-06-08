@@ -42,7 +42,10 @@ namespace BeerTapV2.ApiServices
 
         public Task<ResourceCreationResult<Office, int>> CreateAsync(Office resource, IRequestContext context, CancellationToken cancellation)
         {
-            throw new NotImplementedException();
+            var officeEntdto = AutoMapper.Mapper.Map<Office,OfficeEntityDto>(resource);
+            var officeResdto = _repo.CreateOffice(officeEntdto);
+            var officeRes = AutoMapper.Mapper.Map<OfficeResourceDto, Office>(officeResdto);
+            return Task.FromResult(new ResourceCreationResult<Office, int>(officeRes));
         }
 
         public Task<Office> UpdateAsync(Office resource, IRequestContext context, CancellationToken cancellation)
