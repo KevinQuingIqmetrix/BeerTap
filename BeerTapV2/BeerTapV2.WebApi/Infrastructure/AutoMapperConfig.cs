@@ -11,6 +11,7 @@ namespace BeerTapV2.WebApi.Infrastructure
     {
         public static void RegisterMapping()
         {
+            #region Office Map Configuration
             //Office Resource conversion to OfficeEntityDto
             //ApiService to Repository
             AutoMapper.Mapper.CreateMap<Office, OfficeEntityDto>().ReverseMap();
@@ -23,6 +24,16 @@ namespace BeerTapV2.WebApi.Infrastructure
             //Office ResourceDto to Office Resource
             //Repository to ApiService
             AutoMapper.Mapper.CreateMap<OfficeResourceDto, Office>().ReverseMap();
+            #endregion
+
+            #region Tap Map Configuration
+
+            AutoMapper.Mapper.CreateMap<Tap, TapEntityDto>().ReverseMap();
+            AutoMapper.Mapper.CreateMap<TapEntityDto, Dal.Model.Tap>().ReverseMap();
+            AutoMapper.Mapper.CreateMap<Dal.Model.Tap, TapResourceDto>().ReverseMap();
+            AutoMapper.Mapper.CreateMap<TapResourceDto, Tap>();
+
+            #endregion
         }
     }
 }

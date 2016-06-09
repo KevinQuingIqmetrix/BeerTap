@@ -18,7 +18,7 @@ namespace BeerTapV2.WebApi.Hypermedia
 
         protected override IEnumerable<ResourceLinkTemplate<Tap>> Links()
         {
-            yield return CreateLinkTemplate(CommonLinkRelations.Self, Uri, c => c.Id);
+            yield return CreateLinkTemplate<TapLinksParametersSource>(CommonLinkRelations.Self, Uri, c => c.Parameters.OfficeId, c => c.Resource.Id);
             yield return CreateLinkTemplate<TapLinksParametersSource>(CommonLinkRelations.Self, OfficeSpec.Uri, c => c.Parameters.OfficeId);
         }
 

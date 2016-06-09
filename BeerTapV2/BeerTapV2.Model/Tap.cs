@@ -11,7 +11,7 @@ namespace BeerTapV2.Model
 {
     public class Tap: IIdentifiable<int>, IStatefulTap, IStatefulResource<TapState>
     {
-        public int Id { get; }
+        public int Id { get; set; }
 
         public TapState TapState { get; set; }
     }

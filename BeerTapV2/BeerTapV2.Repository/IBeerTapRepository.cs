@@ -10,5 +10,8 @@ namespace BeerTapV2.Repository
         ICollection<OfficeResourceDto> GetOffices();
         OfficeResourceDto CreateOffice(OfficeEntityDto officeEntDto);
         OfficeResourceDto UpdateOffice(OfficeEntityDto officeEntDto);
+        TapResourceDto TapGet(int id);
+        ICollection<TapResourceDto> TapGetMany(int officeId);
+        TapResourceDto TapCreate(TapEntityDto tapEntDto);
     }
 }
