@@ -1,20 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
-using IQ.Platform.Framework.Common;
-using IQ.Platform.Framework.WebApi.Model.Hypermedia;
 
-namespace BeerTapV2.Model
+namespace BeerTapV2.Dal.Model
 {
-    public class Keg : IIdentifiable<int>, IStatelessResource
+    public class Keg
     {
         public int Id { get; set; }
         public string Flavor { get; set; }
-        //public decimal Milliliters { get; set; }//when replacing keg, it is always full
         public decimal Capacity { get; set; }
+        public decimal Milliliters { get; set; }
         public decimal ThresholdPercentage { get; set; }
     }
 }

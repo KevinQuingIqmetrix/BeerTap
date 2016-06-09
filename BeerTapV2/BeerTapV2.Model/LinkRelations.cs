@@ -15,6 +15,11 @@
         public const string Office = "iq:Offices";
 
         public const string Tap = "iq:Tap";
-        public static string Keg { get; set; } = "iq:ChangeKeg";
+
+        public class TapResource
+        {
+            public const string ChangeKeg = "iq:ChangeKeg";
+        }
+        
     }
 }

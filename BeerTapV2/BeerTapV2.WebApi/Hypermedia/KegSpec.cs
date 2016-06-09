@@ -14,7 +14,7 @@ namespace BeerTapV2.WebApi.Hypermedia
     {
         public static ResourceUriTemplate Uri = ResourceUriTemplate.Create("Offices({OfficeId})/Taps({TapId})/ChangeKeg");
 
-        public override string EntrypointRelation => LinkRelations.Keg;
+        public override string EntrypointRelation => LinkRelations.TapResource.ChangeKeg;
 
         protected override IEnumerable<ResourceLinkTemplate<Keg>> Links()
         {

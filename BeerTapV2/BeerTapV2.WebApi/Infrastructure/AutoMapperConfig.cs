@@ -31,7 +31,18 @@ namespace BeerTapV2.WebApi.Infrastructure
             AutoMapper.Mapper.CreateMap<Tap, TapEntityDto>().ReverseMap();
             AutoMapper.Mapper.CreateMap<TapEntityDto, Dal.Model.Tap>().ReverseMap();
             AutoMapper.Mapper.CreateMap<Dal.Model.Tap, TapResourceDto>().ReverseMap();
-            AutoMapper.Mapper.CreateMap<TapResourceDto, Tap>();
+            AutoMapper.Mapper.CreateMap<TapResourceDto, Tap>().ReverseMap();
+
+            #endregion
+
+            #region Keg Map Configuration
+
+            AutoMapper.Mapper.CreateMap<Keg, KegEntityDto>().ReverseMap();
+            AutoMapper.Mapper.CreateMap<KegEntityDto, Dal.Model.Keg>()
+                .ForMember(dest => dest.Milliliters, opt => opt.MapFrom(src => src.Capacity))
+                .ReverseMap();
+            AutoMapper.Mapper.CreateMap<Dal.Model.Keg, KegResourceDto>().ReverseMap();
+            AutoMapper.Mapper.CreateMap<KegResourceDto, Keg>().ReverseMap();
 
             #endregion
         }

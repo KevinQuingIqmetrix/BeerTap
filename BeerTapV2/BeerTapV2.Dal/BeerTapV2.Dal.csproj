@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BeerTapContext.cs" />
+    <Compile Include="Model\Keg.cs" />
     <Compile Include="Model\Office.cs" />
     <Compile Include="Model\Tap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

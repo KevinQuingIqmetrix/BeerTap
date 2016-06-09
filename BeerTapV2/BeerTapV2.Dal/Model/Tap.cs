@@ -10,5 +10,6 @@ namespace BeerTapV2.Dal.Model
     {
         public int Id { get; set; }
         public virtual Office  Office { get; set; }
+        public virtual Keg Keg { get; set; }
     }
 }

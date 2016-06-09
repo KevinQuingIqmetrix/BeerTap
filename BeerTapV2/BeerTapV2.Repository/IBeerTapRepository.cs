@@ -13,5 +13,7 @@ namespace BeerTapV2.Repository
         TapResourceDto TapGet(int id);
         ICollection<TapResourceDto> TapGetMany(int officeId);
         TapResourceDto TapCreate(TapEntityDto tapEntDto);
+        KegResourceDto KegChange(KegEntityDto kegEntDto);
+        KegResourceDto TapKegGet(int tapId);
     }
 }

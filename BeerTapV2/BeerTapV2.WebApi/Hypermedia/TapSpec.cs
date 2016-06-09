@@ -19,20 +19,49 @@ namespace BeerTapV2.WebApi.Hypermedia
         protected override IEnumerable<ResourceLinkTemplate<Tap>> Links()
         {
             yield return CreateLinkTemplate<TapLinksParametersSource>(CommonLinkRelations.Self, Uri, c => c.Parameters.OfficeId, c => c.Resource.Id);
-            yield return CreateLinkTemplate<TapLinksParametersSource>(CommonLinkRelations.Self, OfficeSpec.Uri, c => c.Parameters.OfficeId);
+            yield return CreateLinkTemplate<TapLinksParametersSource>(LinkRelations.Office, OfficeSpec.Uri, c => c.Parameters.OfficeId);
         }
 
         protected override IEnumerable<IResourceStateSpec<Tap, TapState, int>> GetStateSpecs()
         {
             yield return new ResourceStateSpec<Tap, TapState, int>(TapState.New)
             {
-                Links = {},
-                Operations = new StateSpecOperationsSource<Tap, int>()
+                Links =
                 {
-                    Get = ServiceOperations.Get,
-                    InitialPost = ServiceOperations.Create
-                }
+                    CreateLinkTemplate<TapLinksParametersSource>(LinkRelations.TapResource.ChangeKeg,KegSpec.Uri, c=> c.Parameters.OfficeId, c=>c.Resource.Id)
+                },
+                Operations = this.Operations
+            };
+            yield return new ResourceStateSpec<Tap, TapState, int>(TapState.GoinDown)
+            {
+                Links =
+                {
+                    CreateLinkTemplate<TapLinksParametersSource>(LinkRelations.TapResource.ChangeKeg,KegSpec.Uri, c=> c.Parameters.OfficeId, c=>c.Resource.Id)
+                },
+                Operations = this.Operations
+            };
+            yield return new ResourceStateSpec<Tap, TapState, int>(TapState.AlmostDry)
+            {
+                Links =
+                {
+                    CreateLinkTemplate<TapLinksParametersSource>(LinkRelations.TapResource.ChangeKeg,KegSpec.Uri, c=> c.Parameters.OfficeId, c=>c.Resource.Id)
+                },
+                Operations = this.Operations
+            };
+            yield return new ResourceStateSpec<Tap, TapState, int>(TapState.ShesDryMate)
+            {
+                Links =
+                {
+                    CreateLinkTemplate<TapLinksParametersSource>(LinkRelations.TapResource.ChangeKeg,KegSpec.Uri, c=> c.Parameters.OfficeId, c=>c.Resource.Id)
+                },
+                Operations = this.Operations
             };
         }
+
+        public StateSpecOperationsSource<Tap, int> Operations => new StateSpecOperationsSource<Tap, int>
+        {
+            Get =  ServiceOperations.Get,
+            InitialPost = ServiceOperations.Create
+        };
     }
 }

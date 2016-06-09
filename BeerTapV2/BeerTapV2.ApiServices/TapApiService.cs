@@ -50,6 +50,7 @@ namespace BeerTapV2.ApiServices
             SetContextId(context);
             var officeid = context.UriParameters.GetByName<int>("OfficeId").EnsureValue();
             var tapEntDto = AutoMapper.Mapper.Map<TapEntityDto>(resource);
+            tapEntDto.OfficeId = officeid;
             var tapResDto = _repo.TapCreate(tapEntDto);
             var tapRes = AutoMapper.Mapper.Map<Tap>(tapResDto);
             return Task.FromResult(new ResourceCreationResult<Tap, int>(tapRes));
