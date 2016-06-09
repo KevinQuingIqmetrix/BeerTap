@@ -17,7 +17,9 @@ namespace BeerTapV2.WebApi.Infrastructure
             AutoMapper.Mapper.CreateMap<Office, OfficeEntityDto>().ReverseMap();
             //OfficeEntityDto to Office Entity
             //Repository to Dal
-            AutoMapper.Mapper.CreateMap<OfficeEntityDto, Dal.Model.Office>().ReverseMap();
+            AutoMapper.Mapper.CreateMap<OfficeEntityDto, Dal.Model.Office>()
+                .ForMember(dest => dest.Taps,opt  => opt.Ignore())
+                .ReverseMap();
             //Office Entity to OfficeResourceDto
             //Dal to Repository
             AutoMapper.Mapper.CreateMap<Dal.Model.Office, OfficeResourceDto > ().ReverseMap();
@@ -26,37 +28,59 @@ namespace BeerTapV2.WebApi.Infrastructure
             AutoMapper.Mapper.CreateMap<OfficeResourceDto, Office>().ReverseMap();
 
             AutoMapper.Mapper.CreateMap<Int32, Dal.Model.Office>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(s => s));
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(s => s))
+                .ForMember(dest => dest.Name, opt => opt.Ignore())
+                .ForMember(dest => dest.Taps, opt => opt.Ignore());
                 //.ConvertUsing(x => new Dal.Model.Ta {Id=x});
             #endregion
 
             #region Tap Map Configuration
 
             AutoMapper.Mapper.CreateMap<Tap, TapEntityDto>()
-                .ForMember(dest => dest.KegEntityDto, opt => opt.MapFrom(src=>src.Keg)).ReverseMap();
+                .ForMember(dest => dest.KegEntityDto, opt => opt.MapFrom(src=>src.Keg))
+                .ForMember(dest => dest.OfficeId, opt => opt.Ignore());
             AutoMapper.Mapper.CreateMap<TapEntityDto, Dal.Model.Tap>()
                 .ForMember(dest => dest.Keg, opt => opt.MapFrom(src => src.KegEntityDto))
                 .ForMember(dest => dest.Office, opt => opt.MapFrom(src => src.OfficeId))
-                .ReverseMap();
+                .ForMember(dest => dest.Id, opt => opt.Ignore());
             AutoMapper.Mapper.CreateMap<Dal.Model.Tap, TapResourceDto>()
-                .ForMember(dest => dest.KegResourceDto, opt => opt.MapFrom(src => src.Keg))
-                .ReverseMap();
+                .ForMember(dest => dest.KegResourceDto, opt => opt.MapFrom(src => src.Keg));
             AutoMapper.Mapper.CreateMap<TapResourceDto, Tap>()
                 .ForMember(dest => dest.Keg, opt => opt.MapFrom(src => src.KegResourceDto))
-                .ReverseMap();
+                .ForMember(dest => dest.TapState, opt => opt.ResolveUsing(src => GetState(src)));
 
             #endregion
 
             #region Keg Map Configuration
 
-            AutoMapper.Mapper.CreateMap<Keg, KegEntityDto>().ReverseMap();
+            AutoMapper.Mapper.CreateMap<Keg, KegEntityDto>()
+                .ForMember(dest => dest.TapId, opt => opt.Ignore()).ReverseMap();
             AutoMapper.Mapper.CreateMap<KegEntityDto, Dal.Model.Keg>()
-                .ForMember(dest => dest.Milliliters, opt => opt.MapFrom(src => src.Capacity))
-                .ReverseMap();
+                .ForMember(dest => dest.Milliliters, opt => opt.MapFrom(src => src.Capacity));
             AutoMapper.Mapper.CreateMap<Dal.Model.Keg, KegResourceDto>().ReverseMap();
             AutoMapper.Mapper.CreateMap<KegResourceDto, Keg>().ReverseMap();
 
             #endregion
+
+            #region Cup Map Configuration
+
+            AutoMapper.Mapper.CreateMap<Cup, CupEntityDto>()
+                .ForMember(dest => dest.TapId, opt => opt.Ignore()).ReverseMap().ReverseMap();
+            AutoMapper.Mapper.CreateMap<CupResourceDto, Cup>().ReverseMap();
+
+            #endregion
+        }
+
+        public static TapState GetState(TapResourceDto tapResDto)
+        {
+            var percentage = ((tapResDto.KegResourceDto.Milliliters / tapResDto.KegResourceDto.Capacity) * 100);
+            if (percentage == 100)
+                return TapState.New;
+            if (percentage > tapResDto.KegResourceDto.ThresholdPercentage)
+                return TapState.GoinDown;
+            if (percentage < tapResDto.KegResourceDto.ThresholdPercentage && percentage > 0)
+                return TapState.AlmostDry;
+            return TapState.ShesDryMate;
         }
     }
 }

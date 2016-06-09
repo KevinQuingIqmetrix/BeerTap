@@ -59,6 +59,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cup.cs" />
     <Compile Include="Keg.cs" />
     <Compile Include="LinkRelations.cs" />
     <Compile Include="Office.cs" />

@@ -56,16 +56,6 @@ namespace BeerTapV2.ApiServices
             var tapResDto = _repo.TapCreate(tapEntDto);
             
             var tapRes = AutoMapper.Mapper.Map<Tap>(tapResDto);
-
-            var percentage = ((tapResDto.KegResourceDto.Milliliters / tapResDto.KegResourceDto.Capacity) * 100);
-            if (percentage == 100)
-                tapRes.TapState = TapState.New;
-            else if (percentage > tapRes.Keg.ThresholdPercentage)
-                tapRes.TapState = TapState.GoinDown;
-            else if (percentage < tapRes.Keg.ThresholdPercentage && percentage > 0)
-                tapRes.TapState = TapState.AlmostDry;
-            else tapRes.TapState = TapState.ShesDryMate;
-
             return Task.FromResult(new ResourceCreationResult<Tap, int>(tapRes));
         }
 

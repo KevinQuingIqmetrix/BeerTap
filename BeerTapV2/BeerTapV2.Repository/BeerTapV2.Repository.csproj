@@ -62,6 +62,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CupRepository.cs" />
     <Compile Include="HelperRepository.cs" />
     <Compile Include="IBeerTapRepository.cs" />
     <Compile Include="KegRepository.cs" />

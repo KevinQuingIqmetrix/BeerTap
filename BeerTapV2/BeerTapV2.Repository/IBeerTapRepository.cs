@@ -15,5 +15,6 @@ namespace BeerTapV2.Repository
         TapResourceDto TapCreate(TapEntityDto tapEntDto);
         KegResourceDto KegChange(KegEntityDto kegEntDto);
         KegResourceDto TapKegGet(int tapId);
+        CupResourceDto CupCreate(CupEntityDto cupEntDto);
     }
 }
