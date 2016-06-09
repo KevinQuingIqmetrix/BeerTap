@@ -66,6 +66,7 @@
     <Compile Include="IBeerTapRepository.cs" />
     <Compile Include="OfficeRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TapRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BeerTapV2.Dal\BeerTapV2.Dal.csproj">
