@@ -9,11 +9,12 @@ namespace BeerTapV2.DTO
     public class TapResourceDto
     {
         public int Id { get; set; }
+        public KegResourceDto KegResourceDto { get; set; }
     }
 
     public class TapEntityDto
     {
         public int OfficeId { get; set; }
-
+        public KegEntityDto KegEntityDto { get; set; }
     }
 }

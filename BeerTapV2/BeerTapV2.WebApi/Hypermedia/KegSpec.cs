@@ -20,6 +20,10 @@ namespace BeerTapV2.WebApi.Hypermedia
         {
             yield return CreateLinkTemplate<KegLinksParametersSource>(
                 CommonLinkRelations.Self, Uri, x => x.Parameters.OfficeId, x => x.Parameters.TapId);
+            yield return CreateLinkTemplate<KegLinksParametersSource>(
+                LinkRelations.Tap, TapSpec.Uri, x => x.Parameters.OfficeId, x => x.Parameters.TapId);
+            yield return CreateLinkTemplate<KegLinksParametersSource>(
+                LinkRelations.Office, OfficeSpec.Uri, x => x.Parameters.OfficeId);
         }
 
         public override IResourceStateSpec<Keg, NullState, int> StateSpec => new SingleStateSpec<Keg, int>

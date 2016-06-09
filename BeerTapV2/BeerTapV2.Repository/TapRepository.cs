@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,8 +29,11 @@ namespace BeerTapV2.Repository
 
         public TapResourceDto TapCreate(TapEntityDto tapEntDto)
         {
-            var tapEnts = AutoMapper.Mapper.Map<Tap>(tapEntDto);
+            var tapEnts = AutoMapper.Mapper.Map<TapEntityDto, Tap>(tapEntDto);
             _context.Taps.Add(tapEnts);
+            //_context.ObjectStateManager
+            var entry = _context.Entry(tapEnts.Office);
+            entry.State = EntityState.Unchanged;
             SaveChanges();
             Dispose();
             return AutoMapper.Mapper.Map<TapResourceDto>(tapEnts);
