@@ -24,14 +24,26 @@ namespace BeerTapV2.WebApi.Infrastructure
             //Office ResourceDto to Office Resource
             //Repository to ApiService
             AutoMapper.Mapper.CreateMap<OfficeResourceDto, Office>().ReverseMap();
+
+            AutoMapper.Mapper.CreateMap<Int32, Dal.Model.Office>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(s => s));
+                //.ConvertUsing(x => new Dal.Model.Ta {Id=x});
             #endregion
 
             #region Tap Map Configuration
 
-            AutoMapper.Mapper.CreateMap<Tap, TapEntityDto>().ReverseMap();
-            AutoMapper.Mapper.CreateMap<TapEntityDto, Dal.Model.Tap>().ReverseMap();
-            AutoMapper.Mapper.CreateMap<Dal.Model.Tap, TapResourceDto>().ReverseMap();
-            AutoMapper.Mapper.CreateMap<TapResourceDto, Tap>().ReverseMap();
+            AutoMapper.Mapper.CreateMap<Tap, TapEntityDto>()
+                .ForMember(dest => dest.KegEntityDto, opt => opt.MapFrom(src=>src.Keg)).ReverseMap();
+            AutoMapper.Mapper.CreateMap<TapEntityDto, Dal.Model.Tap>()
+                .ForMember(dest => dest.Keg, opt => opt.MapFrom(src => src.KegEntityDto))
+                .ForMember(dest => dest.Office, opt => opt.MapFrom(src => src.OfficeId))
+                .ReverseMap();
+            AutoMapper.Mapper.CreateMap<Dal.Model.Tap, TapResourceDto>()
+                .ForMember(dest => dest.KegResourceDto, opt => opt.MapFrom(src => src.Keg))
+                .ReverseMap();
+            AutoMapper.Mapper.CreateMap<TapResourceDto, Tap>()
+                .ForMember(dest => dest.Keg, opt => opt.MapFrom(src => src.KegResourceDto))
+                .ReverseMap();
 
             #endregion
 
