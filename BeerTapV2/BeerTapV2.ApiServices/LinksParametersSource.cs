@@ -22,4 +22,16 @@
 
         public int OfficeId { get; private set; }
     }
+    public class KegLinksParametersSource
+    {
+        public KegLinksParametersSource(int officeId, int tapId)
+        {
+            OfficeId = officeId;
+            TapId = tapId;
+        }
+
+        public int TapId { get; private set; }
+
+        public int OfficeId { get; private set; }
+    }
 }

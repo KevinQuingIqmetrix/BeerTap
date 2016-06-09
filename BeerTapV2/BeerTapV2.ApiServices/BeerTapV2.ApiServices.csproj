@@ -177,6 +177,8 @@
   <ItemGroup>
     <Compile Include="ApiServiceInterface\IOfficeApiService.cs" />
     <Compile Include="ApiServiceInterface\ITapApiService.cs" />
+    <Compile Include="ApiServiceInterface\IKegApiService.cs" />
+    <Compile Include="KegApiService.cs" />
     <Compile Include="TapApiService.cs" />
     <Compile Include="OfficeApiService.cs" />
     <Compile Include="IDomainServiceResolver.cs" />
