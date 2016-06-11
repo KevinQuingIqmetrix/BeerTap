@@ -193,6 +193,10 @@
     <Compile Include="SampleApiService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BeerTapV2.Common\BeerTapV2.Common.csproj">
+      <Project>{72ce6920-073a-4ffd-b605-a60ac04c0d28}</Project>
+      <Name>BeerTapV2.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BeerTapV2.DTO\BeerTapV2.DTO.csproj">
       <Project>{C51540CF-4342-4588-86D1-AA3DFBE739DF}</Project>
       <Name>BeerTapV2.DTO</Name>
