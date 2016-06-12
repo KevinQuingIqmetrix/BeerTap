@@ -66,7 +66,7 @@ namespace BeerTapV2.ApiServices
                 message += "Keg Capacity cannot be 0 or less. ";
             if (string.IsNullOrWhiteSpace(keg.Flavor))
                 message += "Keg's Flavor cannot be empty. ";
-            if (keg.ThresholdPercentage == 100 || keg.ThresholdPercentage == 0)
+            if (keg.ThresholdPercentage >= 100 || keg.ThresholdPercentage <= 0)
                 message += "Keg's Threshold should not be 100% or 0%. ";
             if (!string.IsNullOrWhiteSpace(message))
                 throw context.CreateHttpResponseException<Tap>(message,HttpStatusCode.BadRequest);
@@ -75,7 +75,8 @@ namespace BeerTapV2.ApiServices
 
         private void SetContextId(IRequestContext context)
         {
-            var officeid = context.UriParameters.GetByName<int>("OfficeId").EnsureValue();
+            var officeid = context.UriParameters.GetByName<int>("OfficeId").EnsureValue(
+                () => context.CreateHttpResponseException<Tap>("Please provide OfficeId",HttpStatusCode.BadRequest));
             var linkParameter = new TapLinksParametersSource (officeid);
             context.LinkParameters.Set(linkParameter);
         }

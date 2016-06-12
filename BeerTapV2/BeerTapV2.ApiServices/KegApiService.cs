@@ -62,8 +62,10 @@ namespace BeerTapV2.ApiServices
         }
         private void SetContextId(IRequestContext context)
         {
-            var officeid = context.UriParameters.GetByName<int>("OfficeId").EnsureValue();
-            var tapId = context.UriParameters.GetByName<int>("tapId").EnsureValue();
+            var officeid = context.UriParameters.GetByName<int>("OfficeId").EnsureValue(
+                () => context.CreateHttpResponseException<Tap>("Please provide OfficeId", HttpStatusCode.BadRequest));
+            var tapId = context.UriParameters.GetByName<int>("tapId").EnsureValue(
+                () => context.CreateHttpResponseException<Tap>("Please provide TapId", HttpStatusCode.BadRequest));
             var linkParameter = new KegLinksParametersSource(officeid,tapId);
             context.LinkParameters.Set(linkParameter);
         }
@@ -72,10 +74,10 @@ namespace BeerTapV2.ApiServices
         {
             //if (string.IsNullOrWhiteSpace(resource.Flavor))
             //    throw context.CreateHttpResponseException<Keg>("Please provide Flavor", HttpStatusCode.BadRequest);
-            if (resource.Capacity == 0)
-                throw context.CreateHttpResponseException<Keg>("Please provide capacity", HttpStatusCode.BadRequest);
-            if (resource.ThresholdPercentage == 0)
-                throw context.CreateHttpResponseException<Keg>("Please provide threshold", HttpStatusCode.BadRequest);
+            if (resource.Capacity <= 0)
+                throw context.CreateHttpResponseException<Keg>("Capacity cannot be 0 or less", HttpStatusCode.BadRequest);
+            if (resource.ThresholdPercentage <= 0)
+                throw context.CreateHttpResponseException<Keg>("ThresholdPercentage cannot be 0 or less", HttpStatusCode.BadRequest);
             if (resource.ThresholdPercentage == 100)
                 throw context.CreateHttpResponseException<Keg>("ThresholdPercentage cannot be 100 percent", HttpStatusCode.BadRequest);
         }

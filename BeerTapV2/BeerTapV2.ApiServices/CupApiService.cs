@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading;
@@ -40,9 +41,19 @@ namespace BeerTapV2.ApiServices
 
         public void SetContext(IRequestContext context)
         {
-            var officeId = context.UriParameters.GetByName<int>("OfficeId").EnsureValue();
-            var tapId = context.UriParameters.GetByName<int>("TapId").EnsureValue();
+            var officeId = context.UriParameters.GetByName<int>("OfficeId").EnsureValue(
+                () => context.CreateHttpResponseException<Tap>("Please provide OfficeId", HttpStatusCode.BadRequest));
+            var tapId = context.UriParameters.GetByName<int>("TapId").EnsureValue(
+                () => context.CreateHttpResponseException<Tap>("Please provide TapId", HttpStatusCode.BadRequest));
             context.LinkParameters.Set(new CupLinksParametersSource(officeId,tapId));
+        }
+
+        private void ValidateCup(IRequestContext context, Cup resource)
+        {
+            if (resource.Milliliters <= 0)
+            {
+                context.CreateHttpResponseException<Cup>("Milliliters cannot be 0 or less", HttpStatusCode.BadRequest);
+            }
         }
     }
 }
