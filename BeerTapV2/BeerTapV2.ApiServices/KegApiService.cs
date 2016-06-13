@@ -29,14 +29,19 @@ namespace BeerTapV2.ApiServices
         }
         public Task<ResourceCreationResult<Keg, int>> CreateAsync(Keg resource, IRequestContext context, CancellationToken cancellation)
         {
+            SetContextId(context);
             //TODO: update tap spec hypermedia links 
             ValidateResourceInput(resource, context);
 
-            SetContextId(context);
-            var tapId = context.UriParameters.GetByName<int>("tapId").EnsureValue();
+            var tapId = context.UriParameters.GetByName<int>("TapId").EnsureValue();
+            var officeId = context.UriParameters.GetByName<int>("OfficeId").EnsureValue();
 
             //validate flavor is same or not and threshold is reached or not
-            var kegToBeReplaced = _repo.TapKegGet(tapId);
+            var kegToBeReplaced = _repo.TapKegGet(tapId,officeId);
+            if (kegToBeReplaced == null)
+            {
+                throw context.CreateHttpResponseException<Keg>("No Tap with Id specified in office", HttpStatusCode.NotFound);
+            }
             var currentFlavor = kegToBeReplaced.Flavor;
             var currentIsBelowThreshold = ((kegToBeReplaced.Milliliters / kegToBeReplaced.Capacity) * 100) <
                                           kegToBeReplaced.ThresholdPercentage;

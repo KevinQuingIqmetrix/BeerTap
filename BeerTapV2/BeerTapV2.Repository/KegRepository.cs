@@ -28,9 +28,9 @@ namespace BeerTapV2.Repository
             return kegResDto;
         }
 
-        public KegResourceDto TapKegGet(int tapId)
+        public KegResourceDto TapKegGet(int tapId, int officeId)
         {
-            var tapEnt = _context.Taps.Include("Keg").FirstOrDefault(x => x.Id == tapId);
+            var tapEnt = _context.Taps.Include("Keg").FirstOrDefault(x => x.Id == tapId && x.Office.Id == officeId);
             if (tapEnt != null)
             {
                 var kegEnt = tapEnt.Keg;

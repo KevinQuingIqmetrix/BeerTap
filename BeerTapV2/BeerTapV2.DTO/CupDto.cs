@@ -23,6 +23,10 @@ namespace BeerTapV2.DTO
         /// Tap the drink in cup is from
         /// </summary>
         public int TapId { get; set; }
+        /// <summary>
+        /// Office Id of the Office the tap belongs to
+        /// </summary>
+        public int OfficeId { get; set; }
     }
 
     /// <summary>

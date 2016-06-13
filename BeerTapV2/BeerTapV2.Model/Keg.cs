@@ -25,7 +25,7 @@ namespace BeerTapV2.Model
         /// <summary>
         /// how filled the keg is
         /// </summary>
-        public decimal Milliliters { get; set; }//when replacing keg, it is always full
+        public decimal PercentageLeft { get; set; }//when replacing keg, it is always full
         /// <summary>
         /// limit of keg
         /// </summary>

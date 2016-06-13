@@ -31,7 +31,8 @@ namespace BeerTapV2.ApiServices
         public Task<Tap> GetAsync(int id, IRequestContext context, CancellationToken cancellation)
         {
             SetContextId(context);
-            var tapResDto = _repo.TapGet(id);
+            var officeid = context.UriParameters.GetByName<int>("OfficeId").EnsureValue();
+            var tapResDto = _repo.TapGet(id, officeid);
             var tapRes = AutoMapper.Mapper.Map<TapResourceDto, Tap>(tapResDto);
             return Task.FromResult(tapRes);
         }
@@ -50,12 +51,17 @@ namespace BeerTapV2.ApiServices
             KegValidation(resource.Keg, context);
             SetContextId(context);
             var officeid = context.UriParameters.GetByName<int>("OfficeId").EnsureValue();
-            resource.Keg.Milliliters = resource.Keg.Capacity;
+            //resource.Keg.Milliliters = resource.Keg.Capacity;
             var tapEntDto = AutoMapper.Mapper.Map<TapEntityDto>(resource);
             tapEntDto.OfficeId = officeid;
             var tapResDto = _repo.TapCreate(tapEntDto);
+            if (tapResDto == null)
+            {
+                throw context.CreateHttpResponseException<Tap>("Office not found",HttpStatusCode.BadRequest);
+            }
             
             var tapRes = AutoMapper.Mapper.Map<Tap>(tapResDto);
+            //tapRes.Keg.PercentageLeft = (tapResDto.KegResourceDto.Milliliters/tapResDto.KegResourceDto.Capacity)*100;
             return Task.FromResult(new ResourceCreationResult<Tap, int>(tapRes));
         }
 

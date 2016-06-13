@@ -32,9 +32,14 @@ namespace BeerTapV2.ApiServices
         public Task<ResourceCreationResult<Cup, int>> CreateAsync(Cup resource, IRequestContext context, CancellationToken cancellation)
         {
             SetContext(context);
-            var cupEntDto = AutoMapper.Mapper.Map<DTO.CupEntityDto>(resource);
+            var cupEntDto = AutoMapper.Mapper.Map<CupEntityDto>(resource);
             cupEntDto.TapId = context.UriParameters.GetByName<int>("TapId").EnsureValue();
+            cupEntDto.OfficeId = context.UriParameters.GetByName<int>("OfficeId").EnsureValue();
             var cupResDto = _repo.CupCreate(cupEntDto);
+            if (cupResDto == null)
+            {
+                throw context.CreateHttpResponseException<Cup>("Tap not found", HttpStatusCode.BadRequest);
+            }
             var cupRes = AutoMapper.Mapper.Map<CupResourceDto,Cup>(cupResDto);
             return Task.FromResult(new ResourceCreationResult<Cup, int>(cupRes));
         }

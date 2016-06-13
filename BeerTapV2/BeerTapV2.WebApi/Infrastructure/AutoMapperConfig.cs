@@ -54,18 +54,27 @@ namespace BeerTapV2.WebApi.Infrastructure
             #region Keg Map Configuration
 
             AutoMapper.Mapper.CreateMap<Keg, KegEntityDto>()
-                .ForMember(dest => dest.TapId, opt => opt.Ignore()).ReverseMap();
+                .ForMember(dest => dest.TapId, opt => opt.Ignore())
+                .ReverseMap()
+                .ForMember(dest => dest.PercentageLeft, opt => opt.Ignore());
             AutoMapper.Mapper.CreateMap<KegEntityDto, Dal.Model.Keg>()
                 .ForMember(dest => dest.Milliliters, opt => opt.MapFrom(src => src.Capacity));
             AutoMapper.Mapper.CreateMap<Dal.Model.Keg, KegResourceDto>().ReverseMap();
-            AutoMapper.Mapper.CreateMap<KegResourceDto, Keg>().ReverseMap();
+            AutoMapper.Mapper.CreateMap<KegResourceDto, Keg>()
+                .ForMember(dest => dest.PercentageLeft, opt => opt.MapFrom(x => (x.Milliliters/x.Capacity)*100));
+                
+                //.ReverseMap()
+                //.ForMember(dest => dest.Milliliters, opt => opt.MapFrom(s=>(s.PercentageLeft / 100) * s.Capacity));
 
             #endregion
 
             #region Cup Map Configuration
 
             AutoMapper.Mapper.CreateMap<Cup, CupEntityDto>()
-                .ForMember(dest => dest.TapId, opt => opt.Ignore()).ReverseMap().ReverseMap();
+                .ForMember(dest => dest.TapId, opt => opt.Ignore())
+                .ForMember(dest => dest.OfficeId, opt => opt.Ignore())
+                .ReverseMap()
+                .ForSourceMember(x => x.OfficeId, opt => opt.Ignore());
             AutoMapper.Mapper.CreateMap<CupResourceDto, Cup>().ReverseMap();
 
             #endregion

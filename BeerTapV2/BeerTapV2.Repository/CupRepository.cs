@@ -12,7 +12,7 @@ namespace BeerTapV2.Repository
     {
         public CupResourceDto CupCreate(CupEntityDto cupEntDto)
         {
-            var tap = _context.Taps.FirstOrDefault(x => x.Id == cupEntDto.TapId);
+            var tap = _context.Taps.FirstOrDefault(x => x.Id == cupEntDto.TapId && x.Office.Id == cupEntDto.OfficeId);
             var cupResDto = new CupResourceDto();
             if (tap != null)
             {
@@ -29,7 +29,7 @@ namespace BeerTapV2.Repository
                 SaveChanges();
                 Dispose();
             }
-            else throw new InvalidOperationException("No Tap with Id: " + cupEntDto.TapId);
+            else return null;
             
             return cupResDto;
         }
