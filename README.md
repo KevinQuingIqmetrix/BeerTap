@@ -1,5 +1,5 @@
 ## BeerTap  
-BeerTap Porject to familiarize with Hypermedia framewor
+BeerTap Porject to familiarize with Hypermedia framework  
 
 ## To Test:  
 -Import BeerTap.postman_collection.json to postman  
