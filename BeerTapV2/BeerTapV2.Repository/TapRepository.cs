@@ -35,10 +35,13 @@ namespace BeerTapV2.Repository
             {
                 return null;
             }
-            _context.Taps.Add(tapEnts);
-            //_context.ObjectStateManager
-            var entry = _context.Entry(tapEnts.Office);
-            entry.State = EntityState.Unchanged;
+
+            officeEnt.Taps.Add(tapEnts);
+            tapEnts.Office = officeEnt;
+            //_context.Taps.Add(tapEnts);
+            ////_context.ObjectStateManager
+            //var entry = _context.Entry(tapEnts.Office);
+            //entry.State = EntityState.Unchanged;
             SaveChanges();
             Dispose();
             return AutoMapper.Mapper.Map<TapResourceDto>(tapEnts);
