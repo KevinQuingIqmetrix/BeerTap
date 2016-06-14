@@ -29,8 +29,6 @@ namespace BeerTapV2.WebApi.Hypermedia
                 Links =
                 {
                     CreateLinkTemplate<TapLinksParametersSource>(
-                        LinkRelations.TapResource.ChangeKeg,KegSpec.Uri, c=> c.Parameters.OfficeId, c=>c.Resource.Id),
-                    CreateLinkTemplate<TapLinksParametersSource>(
                         LinkRelations.TapResource.NewGlass,CupSpec.Uri, c=> c.Parameters.OfficeId, c=>c.Resource.Id)
                 },
                 Operations = this.Operations
@@ -39,8 +37,6 @@ namespace BeerTapV2.WebApi.Hypermedia
             {
                 Links =
                 {
-                    CreateLinkTemplate<TapLinksParametersSource>(
-                        LinkRelations.TapResource.ChangeKeg,KegSpec.Uri, c=> c.Parameters.OfficeId, c=>c.Resource.Id),
                     CreateLinkTemplate<TapLinksParametersSource>(
                         LinkRelations.TapResource.NewGlass,CupSpec.Uri, c=> c.Parameters.OfficeId, c=>c.Resource.Id)
                 },
