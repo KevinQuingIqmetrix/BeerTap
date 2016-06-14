@@ -1,0 +1,219 @@
+{
+	"variables": [],
+	"info": {
+		"name": "BeerTap",
+		"_postman_id": "3d3c00da-3fde-70e4-70e1-31c81832229c",
+		"description": "BeerTap requests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET root",
+			"request": {
+				"url": "http://localhost:61284/",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": "links should have links to:\nKegs\nOffices\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Office",
+			"request": {
+				"url": "http://localhost:61284/Offices",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": "QUERYSTRING:\n    \nREQUEST:\n    \nRETURN:\n    All office resource\nLINKS:\n    self\n    kegs"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Office by id",
+			"request": {
+				"url": "http://localhost:61284/Offices({{officeid}})",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": "QUERYSTRING:\n    Id of office\nREQUEST:\n    \nRETURN:\n    Office Resource with Id specified in Querystring\nLINKS:\n    self\n    kegs"
+			},
+			"response": []
+		},
+		{
+			"name": "Create Office",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": "var jsonObject = JSON.parse(responseBody);\npostman.setEnvironmentVariable(\"officeid\",jsonObject.Id) ;"
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:61284/Offices",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"Name\": \"Manila\"\n}"
+				},
+				"description": "REQUEST:\n    office resource without id\nRETURN:\n    created office resource with id\nLINKS:\n    self\n    kegs"
+			},
+			"response": []
+		},
+		{
+			"name": "Update Office by id",
+			"request": {
+				"url": "http://localhost:61284/Offices({{officeid}})",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"Name\": \"Manila\"\n}"
+				},
+				"description": "QUERYSTRING:\n    office id to update\nREQUEST:\n    office resource without id\nRETURN:\n    updated office resource with id\nLINKS:\n    self\n    kegs"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Taps",
+			"request": {
+				"url": "http://localhost:61284/Offices({{officeid}})/Taps",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": "QUERYSTRING:\n    Id of office\nREQUEST:\n    \nRETURN:\n    Office Resource with Id specified in Querystring\nLINKS:\n    self\n    kegs"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Tap by id",
+			"request": {
+				"url": "http://localhost:61284/Offices({{officeid}})/Taps({{tapid}})",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": "QUERYSTRING:\n    Id of office\nREQUEST:\n    \nRETURN:\n    Office Resource with Id specified in Querystring\nLINKS:\n    self\n    kegs"
+			},
+			"response": []
+		},
+		{
+			"name": "Create Tap",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": "var jsonObject = JSON.parse(responseBody);\npostman.setEnvironmentVariable(\"tapid\",jsonObject.Id) ;"
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:61284/Offices({{officeid}})/Taps",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"Keg\": {\n        \"Capacity\": 10000,\n        \"Flavor\": \"Beer\",\n        \"ThresholdPercentage\": 10\n    }\n}"
+				},
+				"description": "QUERYSTRING:\n    Id of office\nREQUEST:\n    \nRETURN:\n    Office Resource with Id specified in Querystring\nLINKS:\n    self\n    kegs"
+			},
+			"response": []
+		},
+		{
+			"name": "Change Keg (Change Flavor)",
+			"request": {
+				"url": "http://localhost:61284/Offices({{officeid}})/Taps({{tapid}})/ChangeKeg",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"Capacity\": 10000,\n    \"Flavor\": \"Gin Bulag\",\n    \"ThresholdPercentage\": 10\n}"
+				},
+				"description": "QUERYSTRING:\n    Id of office\nREQUEST:\n    \nRETURN:\n    Office Resource with Id specified in Querystring\nLINKS:\n    self\n    kegs"
+			},
+			"response": []
+		},
+		{
+			"name": "Change Keg (Refill)",
+			"request": {
+				"url": "http://localhost:61284/Offices({{officeid}})/Taps({{tapid}})/ChangeKeg",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"Capacity\": 10000,\n    \"Flavor\": \"\",\n    \"ThresholdPercentage\": 10\n}"
+				},
+				"description": "QUERYSTRING:\n    Id of office\nREQUEST:\n    \nRETURN:\n    Office Resource with Id specified in Querystring\nLINKS:\n    self\n    kegs"
+			},
+			"response": []
+		},
+		{
+			"name": "New Glass",
+			"request": {
+				"url": "http://localhost:61284/Offices({{officeid}})/Taps({{tapid}})/NewGlass",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"Milliliters\": 1000\n}"
+				},
+				"description": "QUERYSTRING:\n    Id of office\nREQUEST:\n    \nRETURN:\n    Office Resource with Id specified in Querystring\nLINKS:\n    self\n    kegs"
+			},
+			"response": []
+		}
+	]
+}
