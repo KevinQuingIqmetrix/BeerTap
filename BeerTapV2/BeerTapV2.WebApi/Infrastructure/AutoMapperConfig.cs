@@ -87,7 +87,7 @@ namespace BeerTapV2.WebApi.Infrastructure
                 return TapState.New;
             if (percentage > tapResDto.KegResourceDto.ThresholdPercentage)
                 return TapState.GoinDown;
-            if (percentage < tapResDto.KegResourceDto.ThresholdPercentage && percentage > 0)
+            if (percentage <= tapResDto.KegResourceDto.ThresholdPercentage && percentage > 0)
                 return TapState.AlmostDry;
             return TapState.ShesDryMate;
         }
